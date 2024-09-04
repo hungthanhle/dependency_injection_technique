@@ -8,7 +8,10 @@ def main
     service: Service::MAILCHIMP,
     to_address: "arjan@arjancodes.com",
     subject: "Urgent meeting",
-    body: "Very secret email"
+    body: "Very secret email",
+    signature: "",
+    smtp_server: "",
+    attachment: ""
   )
 
   puts result
