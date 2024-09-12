@@ -1,3 +1,4 @@
+require_relative 'service_locator'
 require_relative 'services'
 
 class Service
@@ -7,20 +8,15 @@ class Service
 end
 
 class EmailSender
-  # def send_email(service:, to_address:, subject:, body:, options: {}) # send_email(..., {smtp_server: , signature: })
-  def send_email(service:, to_address:, subject:, body:, smtp_server: nil, signature: nil, attachment: nil)
-    case service
-    when Service::MAILCHIMP
-      email_sender = MailChimp.new
-      email_sender.send_email(to_address: to_address, subject: subject, body: body, attachment: attachment)
-    when Service::SENDGRID
-      email_sender = SendGrid.new
+  def initialize
+  end
+
+  def send_email(service:, to_address:, subject:, body:)
+    email_sender = ServiceLocator.get_service(service)
+    if email_sender
       email_sender.send_email(to_address: to_address, subject: subject, body: body)
-    when Service::SMTP
-      email_sender = Smtp.new
-      email_sender.send_email(to_address: to_address, subject: subject, body: body, smtp_server: smtp_server, signature: signature)
     else
-      MailChimp.new.send_email(to_address: to_address, subject: subject, body: body, attachment: attachment)
+      raise "Service not found"
     end
   end
 end
