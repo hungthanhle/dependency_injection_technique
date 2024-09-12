@@ -1,15 +1,17 @@
 # https://youtu.be/Pbpq4Re1REQ?si=NhTyhbmcFsRA-sgL&t=445
 class Socket
-  def initialize(tivi, fridge, fan)
-    @tivi = tivi
-    @fridge = fridge
-    @fan = fan
+  def initialize()
+    @devices = []
+  end
+
+  def add_device(device)
+    @devices.push device
   end
   
   def activate
-    @tivi.connect
-    @fridge.connect
-    @fan.connect
+    @devices.each do |device|
+      device.connect
+    end
   end
 end
 
@@ -31,5 +33,8 @@ class Fan
   end
 end
 
-socket = Socket.new(Tivi.new, Fridge.new, Fan.new)
+socket = Socket.new
+socket.add_device(Tivi.new)
+socket.add_device(Fridge.new)
+socket.add_device(Fan.new)
 socket.activate
