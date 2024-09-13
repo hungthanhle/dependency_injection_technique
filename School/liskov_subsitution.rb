@@ -1,12 +1,12 @@
 # Định nghĩa lớp cha Bird
 class Bird
-  def fly
+  def fly #
     puts "Fly"
   end
 end
 
 # Định nghĩa các lớp con
-class Eagle < Bird
+class Eagle < Bird #
   def fly
     puts "Eagle Fly"
   end
