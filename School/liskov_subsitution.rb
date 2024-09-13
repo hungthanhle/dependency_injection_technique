@@ -18,8 +18,21 @@ class Duck < Bird
   end
 end
 
-birds = [Bird.new, Eagle.new, Duck.new]
+class Penguin < Bird
+  def fly
+    raise NoFlyException, "Penguins can't fly!"
+  end
+end
+
+birds = [Bird.new, Eagle.new, Duck.new, Penguin.new]
 
 birds.each do |bird|
-  bird.fly
+  begin
+    bird.fly
+  rescue NoFlyException => e
+    puts e.message # Penguin
+  end
+end
+
+class NoFlyException < StandardError
 end
